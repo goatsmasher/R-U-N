@@ -1,3 +1,4 @@
 Please enter your name:
 Josh
 Michael
+Seth
