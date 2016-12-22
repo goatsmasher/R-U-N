@@ -49,7 +49,6 @@
 
             <div class="inner-bg">
                 <div class="container">
-
                     <!-- <div class="row">
                         <div class="col-sm-8 col-sm-offset-2 text">
                             <h1><strong>Bootstrap</strong> Login &amp; Register Forms</h1>
@@ -85,13 +84,7 @@
                         <!-- Added from previous HTML -->
                         {# Load the tag library #} {% load bootstrap3 %} {# Load CSS and JavaScript #} {% bootstrap_javascript %}
                         <!-- this was after load CSS and JavaScript {% bootstrap_css %} {% bootstrap_javascript %} -->
-                            <div class="errors">
-                                {% if messages %}
-                                    {% for message in messages %}
-                                        <p>{{ message }}</p>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
+
                         	<div class="form-box">
 
 	                        	<div class="form-top">
@@ -151,6 +144,12 @@
                     </div>
 
                 </div>
+                {% if messages %}
+
+                <div class="alert alert-danger" role="alert">{% for message in messages %}<p>{{ message }}</p>{% endfor %}</div>
+
+                {% endif %}
+                <!-- {# Display django.contrib.messages as Bootstrap alerts #} {m% bootstrap_messages %} -->
             </div>
 
         </div>
@@ -168,7 +167,7 @@
         			</div>
 
         		</div>
-                {# Display django.contrib.messages as Bootstrap alerts #} {% bootstrap_messages %}
+
         	</div>
         </footer>
 

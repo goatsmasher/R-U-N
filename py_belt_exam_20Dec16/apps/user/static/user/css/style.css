@@ -211,13 +211,17 @@ footer a:hover, footer a:focus { color: #fff; border-bottom: 1px dotted #fff; }
   margin: 0px 5px 0px 0px;
 }
 
-.col-sm-4 .errors {
-
+.alert {
+  position:absolute;
+  left: 15px;
+  bottom: 20px;
+  z-index: 10;
 }
 
-.col-sm-4 .errors p {
-  color: white;
+.inner-bg {
+  position:relative;
 }
+
 
 /***** Media queries *****/
 

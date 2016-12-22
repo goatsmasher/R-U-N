@@ -40,6 +40,7 @@ def signup(request):
     if request.method == "POST":
         print(request.POST)
         viewsReponse = User.objects.signup(request.POST)
+        
         if viewsReponse['status']:
             request.session['user_id'] = viewsReponse['user'].id
             return redirect ('apt:index')

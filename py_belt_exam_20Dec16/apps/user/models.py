@@ -94,7 +94,8 @@ class UserManager(models.Manager):
             for error in dataResponse['errors']:
                 errors.append(error)
         if not EMAIL_REGEX.match(postData['email']):
-            error.append('Email error')
+            # error.append('Email error')
+            errors.append('Email error')
         if postData['password'] != postData['confirm_password']:
             errors.append('Confirm password did not match.')
         elif not PASSWORD_REGEX.match(postData['password']):
