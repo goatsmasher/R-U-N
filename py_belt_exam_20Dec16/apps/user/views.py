@@ -32,20 +32,34 @@ def index(request):
         'signupForm': signupForm,
         'signinForm': signinForm
         }
-        
+
     return render(request, 'user/index.html', context)
 
 def signup(request):
-    print(request.POST)
-    viewsReponse = User.objects.signup(request.POST)
-    if viewsReponse['status']:
-        request.session['user_id'] = viewsReponse['user'].id
-        return redirect ('user:index')
-    else:
-        for error in viewsReponse['errors']:
-            messages.error(request, error)
-        return redirect('user:index')
-    return redirect('apt:index')
+    # if
+    if request.method == "POST":
+        print(request.POST)
+        viewsReponse = User.objects.signup(request.POST)
+        if viewsReponse['status']:
+            request.session['user_id'] = viewsReponse['user'].id
+            return redirect ('apt:index')
+        else:
+            for error in viewsReponse['errors']:
+                messages.error(request, error)
+            return redirect('user:signup')
+    # return redirect('user:signup')
+    return render(request, 'user/signup.html')
+
+    # print(request.POST)
+    # viewsReponse = User.objects.signup(request.POST)
+    # if viewsReponse['status']:
+    #     request.session['user_id'] = viewsReponse['user'].id
+    #     return redirect ('user:index')
+    # else:
+    #     for error in viewsReponse['errors']:
+    #         messages.error(request, error)
+    #     return redirect('user:index')
+    # return redirect('apt:index')
 
 def signin(request):
     viewsReponse = User.objects.signin(request.POST)
