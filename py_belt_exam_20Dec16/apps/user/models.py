@@ -56,9 +56,9 @@ def validateSignup(data):
     if data['confirm_password'] != data['password']:
         errors.append("Password not confirmed.")
         valid = False
-    if convertDate(data['dob']) > datetime.datetime.today():
-        errors.append("Date invalid. Check format and ensure it's in the past.")
-        valid = False
+    # if convertDate(data['dob']) > datetime.datetime.today():
+    #     errors.append("Date invalid. Check format and ensure it's in the past.")
+    #     valid = False
 
     response = {
         'errors': errors,
@@ -110,7 +110,6 @@ class UserManager(models.Manager):
                 first_name=postData['first_name'],
                 last_name=postData['last_name'],
                 email=postData['email'],
-                dob=convertDate(postData['dob']),
                 password=bcrypt.hashpw(postData['password'].encode('utf-8'),bcrypt.gensalt())
                 )
         return response

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign In / Sign Up</title>
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+  $( function() {
+    $( "#dob" ).datepicker({maxDate:'-1'});
+  } );
+  </script>
+</head>
+
+<body>
+    <div class="container">
+        <p></p>
+        {# Load the tag library #} {% load bootstrap3 %} {# Load CSS and JavaScript #} {% bootstrap_css %} {% bootstrap_javascript %}
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#signin">Sign In</a></li>
+                <li><a data-toggle="tab" href="#signup">Sign Up</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="signin">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1>Sign In</h1> {# Display a form #}
+                            <form action="{%url 'user:signin'%}" method="post" class="form">
+                                {% csrf_token %} {% bootstrap_form signinForm %} {% buttons %}
+                                <button type="submit" class="btn btn-success">
+                      {% bootstrap_icon "ok" %} Sign In
+                    </button> {% endbuttons %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="signup">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1>Sign Up</h1> {# Display a form #}
+                            <form action="{%url 'user:signup'%}" method="post" class="form">
+                                {% csrf_token %} {% bootstrap_form signupForm %}
+                                <label for="confirm_password">Confirm: </label><input type="password" id="confirm_password" class="form-control" name="confirm_password" value="">
+                                <p class="help-block">Password must be 8 characters long, alphanumeric, and contain upper- and lower-case letters</p>
+
+                                <label for="dob">Birth date: </label><input type="date" id="dob" class="form-control" name="dob" value="">
+
+                                <p class="help-block">Format date as MM/DD/YYYY</p>
+
+                                {% buttons %}
+                                <button type="submit" class="btn btn-primary">
+                      {% bootstrap_icon "plus" %} Sign Up
+                    </button> {% endbuttons %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# Display django.contrib.messages as Bootstrap alerts #} {% bootstrap_messages %}
+    </div>
+</body>
+
+</html>
