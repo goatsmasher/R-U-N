@@ -94,8 +94,7 @@ class UserManager(models.Manager):
             for error in dataResponse['errors']:
                 errors.append(error)
         if not EMAIL_REGEX.match(postData['email']):
-            # error.append('Email error')
-            errors.append('Email error')
+            error.append('Email error')
         if postData['password'] != postData['confirm_password']:
             errors.append('Confirm password did not match.')
         elif not PASSWORD_REGEX.match(postData['password']):
@@ -115,17 +114,66 @@ class UserManager(models.Manager):
                 )
         return response
 
+
+
+
 class User(models.Model):
-    email = models.EmailField(max_length=255, validators = [validateLength], unique=True, default='')
     first_name = models.CharField(max_length=100, validators = [validateLength])
     last_name = models.CharField(max_length=100, validators = [validateLength])
+    email = models.EmailField(max_length=255, validators = [validateLength], unique=True, default='') #write new user for each email invite and attach them to event
     password = models.CharField(max_length=255, validators = [validateLength])
-    dob = models.DateField(default='2012-12-12')
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     last_login = models.DateTimeField(auto_now=True)
     avatar = models.CharField(max_length=255, default='')
-
+    friends = models.ManyToManyField('self')
+    address = models.ForeignKey(Address)
     objects = UserManager()
+
+class Event(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=1000)
+    created_by = models.ForeignKey(User)
+    datetime_start = models.DateTimeField()
+    datetime_end = models.DateTimeField()
+    allow_others = models.BooleanField(deafult=False)
+    creater_approve_other_invites = models.BooleanField(deafult=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now_add=True)
+    address = models.ForeignKey(Address)
+
+class Invited(models.Model):
+    check_if_user = models.ForeignKey(User) #we can use this to traverse to user table to check if the email is already registered? possible in the future we can just notify the user on their dashboard they have a pending invite
+    to_event = models.ForeignKey(Event)
+    status = models.CharField(default="Pending") #we can display and count the number of people going from status
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now_add=True)
+
+class Address(models.Model):
+    location_name = models.CharField(max_length=50)
+    address_primary = models.CharField(max_length=50) #read it is better to save these fields as text because what if address has a 1/2 or 123'B' Street Ave
+    address_street = models.CharField(max_length=50)
+    address_city = models.CharField(max_length=50)
+    long = models.CharField(max_length=50)
+    lat = models.CharField(max_length=50)
+    postal_code = models.CharField(max_length=15)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now_add=True)
+
+class Message(models.Model):
+    message = models.CharField(max_length=1000)
+    created_by = models.ForeignKey(User)
+    event = models.ForeignKey(Event)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now_add=True)
+
+class Comment(models.Model):
+    comment = models.CharField(max_length=1000)
+    related_message = models.ForeignKey(Message)
+    created_by = models.ForeignKey(User)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now_add=True)
+
+# class Poll(models.Model):
