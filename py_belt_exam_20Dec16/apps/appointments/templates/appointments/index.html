@@ -2,11 +2,43 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>{{user.first_name}}'s Dashboard</title>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- <title>r | U | n | ? - Login</title> -->
+    <title>r / U / n - Login</title>
+
+    {% load staticfiles %}
+    <!-- <link rel="stylesheet" href="{% static 'users/css/style.css' %}" media="screen" title="no title"  charset="utf-8"> -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="{% static 'appointments/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'appointments/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'appointments/css/form-elements.css' %}">
+    <link rel="stylesheet" href="{% static 'appointments/css/style.css' %}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="{% static 'appointments/assets/ico/favicon.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'user/ico/apple-touch-icon-144-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'user/ico/apple-touch-icon-114-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'user/ico/apple-touch-icon-72-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'user/ico/apple-touch-icon-57-precomposed.png' %}">
+
+    <!-- <link rel="stylesheet" href="{% static 'appointments/css/style.css' %}"> -->
+
+
     <script>
         $(function() {
             $("#id_date").datepicker({
@@ -19,17 +51,30 @@
 <body>
     <div class="container">
         <p></p>
-        {# Load the tag library #} {% load bootstrap3 %} {# Load CSS and JavaScript #} {% bootstrap_css %} {% bootstrap_javascript %}
+        {# Load the tag library #} {% load bootstrap3 %} {# Load CSS and JavaScript #} {% bootstrap_javascript %}
+
+         <!-- {% bootstrap_css %} {% bootstrap_javascript %} -->
         <div class="row">
-            <div class="col-md-4">
-                <h3>Hello, {{user.first_name}}</h3></div>
-            <div class="col-md-2">
-                <p><a href="/signout">Sign Out</a></p>
+            <div id="header">
+                <div class="col-md-6">
+                    <h3>*PUT LOGO HERE</h3>
+                    <!-- <h3>Hello, {{user.first_name}}</h3></div> -->
+                </div>
+                <div class="col-md-6">
+                    <ul>
+                        <li><a href="{% url 'apt:index' %}">Dashboard</a></li>
+                        <li><a href="">|</a></li>
+                        <li><a href="/signout">Sign Out</a></li>
+                    </ul>
+
+                    <!-- <p><a href="{% url 'apt:index' %}">Dashboard</a></p>
+                    <p><a href="/signout">Sign Out</a></p> -->
+                </div>
             </div>
         </div>
 
 
-        <div>
+        <!-- <div>
             <p>Here are your appointments for today, {{thisday|date:"M d, Y"}}:</p>
             <table class="table-striped table">
                 <tr>
@@ -73,8 +118,83 @@
                 {% endfor %}
             </table>
         </div>
-        <hr>
+        <hr> -->
         <div class="row">
+            <div class="col-md-12 offset-md-2">
+                <div class="dashTitle">
+                    {% buttons %}
+                    <input id="id_date" type="text" name="" value="" placeholder="Filter Start Date"> {% bootstrap_icon "calendar" %}
+                    <input id="id_date" type="text" name="" value="" placeholder="Filter End Date"> {% bootstrap_icon "calendar" %}
+                    <input type="text" name="search" placeholder="Filter..">
+                    {% endbuttons %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 offset-md-2">
+                <div class="dashItem">
+                    <div class="dashItemBack unique"></div>
+                    <div class="dashItemTop unique">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p>Put Image Here</p>
+                            </div>
+                            <div class="col-md-8">
+                                <h1>Josh's Birthday Bash</h1>
+
+                            </div>
+                            <div class="col-md-2">
+                                <p>Put a Calendar</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashItemMid unique">
+                        <div class="row">
+                            <div class="col-md-8 offset-md-2">
+                                <h1></h1>
+                                <h4>Leny's Place</h4>
+                                <h4>2219 North 56th Street</h4>
+                                <h4>Seattle, WA 98103 United States</h4>
+                                <p>Description Here:  Come to Josh's Party</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h3>What Day</h3>
+                                <h3>What Time</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashItemBot unique">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>Weather</h4>
+                            </div>
+                            <!-- <div class="col-md-6"> -->
+                                <div class="col-md-2">
+                                    <h4>Chat</h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <h4>Invited</h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <h4>Status</h4>
+                                </div>
+
+                            <!-- </div> -->
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- <div class="row">
             <div class="col-md-5">
                 <h4>Add Appointment</h4> {# Display a form #}
                 <p class="help-block">Current system time: {% now "H:i M j, Y" %}</p>
@@ -86,7 +206,7 @@
         </button> {% endbuttons %}
                 </form>
             </div>
-        </div>
+        </div> -->
 
         {# Display django.contrib.messages as Bootstrap alerts #} {% bootstrap_messages %}
     </div>
