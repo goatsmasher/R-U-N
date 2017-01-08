@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <title>r / U / n - Create Event</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="{% static 'main_app/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/css/form-elements.css' %}">
+    <link rel="stylesheet" href="{% static 'event/invite_friends.css' %}">
+    <link rel="shortcut icon" href="{% static 'main_app/assets/ico/favicon.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'user/ico/apple-touch-icon-144-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'user/ico/apple-touch-icon-114-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'user/ico/apple-touch-icon-72-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'user/ico/apple-touch-icon-57-precomposed.png' %}">
+</head>
+<body>
+    <div class="container">
+        <p></p>
+        {# Load the tag library #} {% load bootstrap3 %} {# Load CSS and JavaScript #} {% bootstrap_javascript %}
+        <div class="row">
+            <div id="header">
+                <div class="col-md-6 logo">
+                    <!--<img src="{% static 'main_app/img/logo/logo.png'' %}" alt="logo" />-->
+                </div>
+                <div class="col-md-6">
+                    <ul>
+                        <li><a href="{% url 'main:index' %}">Dashboard</a></li>
+                        <li><a href="">|</a></li>
+                        <li><a href="{% url 'user:signout' %}">Sign Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 offset-md-2">
+                <div class="dashTitle">
+                    <h1>Who would you like to invite?</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

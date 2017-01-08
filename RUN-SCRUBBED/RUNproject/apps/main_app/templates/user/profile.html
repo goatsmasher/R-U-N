@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{first_name}}'s Profile</title>
+        {% load staticfiles %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="{% static 'main_app/bootstrap/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'main_app/font-awesome/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'main_app/css/form-elements.css' %}">
+        <link href="{% static 'user/css/profile-page.css' %}" rel="stylesheet">
+        <link rel="shortcut icon" href="{% static 'main_app/ico/favicon.png' %}">
+    </head>
+    <body>
+        <div id="container">
+            <div id="proPic">
+                <img src="{% static 'user/assets/img/blank_profile_picture.jpg' %}" alt="user profile picture">
+            </div>
+            <h1>Your Profile</h1>
+            <h3>Full Name:</h3><p> {{first_name}} {{last_name}}</p>
+            <h3>Email:</h3><p> {{email}}</p>
+            <h3>Password:</h3><p> {{password}}</p>
+            <h3>Events Created:</h3>{% for name in user_created %} <p> {{name.name}}</p> {% endfor %}
+            <h3>Events Attending:</h3>
+            <h3>Pending Invitations:</h3>
+        </div>
+        <a href="">Edit</a>
+        <a href="{% url 'main:index' %}">Back</a>
+    </body>
+</html>

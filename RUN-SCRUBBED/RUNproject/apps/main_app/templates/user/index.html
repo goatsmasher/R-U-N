@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load staticfiles %}
+        <title>r / U / n - Login</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="{% static 'user/bootstrap/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'user/font-awesome/css/font-awesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'user/css/form-elements.css' %}">
+        <link rel="stylesheet" href="{% static 'user/css/style.css' %}">
+        <link rel="shortcut icon" href="{% static 'main_app/ico/favicon.png' %}">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'user/ico/apple-touch-icon-144-precomposed.png' %}">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'user/ico/apple-touch-icon-114-precomposed.png' %}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'user/ico/apple-touch-icon-72-precomposed.png' %}">
+        <link rel="apple-touch-icon-precomposed" href="{% static 'user/ico/apple-touch-icon-57-precomposed.png' %}">
+        <link rel="stylesheet" href="{% static 'user/css/style.css' %}">
+        <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="{% static 'user/js/jquery-1.11.1.min.js' %}"></script>
+        <script src="{% static 'user/bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'user/js/jquery.backstretch.min.js' %}"></script>
+        <script src="{% static 'user/js/scripts.js' %}"></script>
+    </head>
+    <body>
+        <div class="top-content">
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                        {# Load the tag library #} {% load bootstrap3 %} {# Load CSS and JavaScript #} {% bootstrap_javascript %}
+                        	<div class="form-box">
+	                        	<div class="form-top">
+	                        		<div class="form-top-left">
+	                        			<h3>Login to RUN</h3>
+	                            		<p>Please enter your credentials:</p>
+	                        		</div>
+	                        		<div class="form-top-right">
+	                        		</div>
+	                            </div>
+	                            <div class="form-bottom">
+                                    {# Display a form #}
+                                    {% csrf_token %}
+                                    {% buttons %}
+				                    <form role="form" action="{% url 'user:signin' %}" method="post" class="login-form">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+				                        	<label class="sr-only" for="form-email">Email</label>
+				                        	<input type="text" name="email" placeholder="Email..." class="form-email form-control" id="form-email">
+				                        </div>
+				                        <div class="form-group">
+				                        	<label class="sr-only" for="form-password">Password</label>
+				                        	<input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password">
+				                        </div>
+				                        <button type="submit" class="btn"><span>{% bootstrap_icon "ok" %}</span>Log In!</button>
+                                        {% endbuttons %}
+				                    </form>
+			                    </div>
+		                    </div>
+                            <a href="{% url 'user:signup' %}">Go to Registration Page</a>
+		                	<div class="social-login">
+	                        	<h3>...or login with:</h3>
+	                        	<div class="social-login-buttons">
+		                        	<a class="btn btn-link-2" href="#">
+		                        		<i class="fa fa-facebook"></i> Facebook</a>
+		                        	<a class="btn btn-link-2" href="#">
+		                        		<i class="fa fa-google-plus"></i> Google Plus
+		                        	</a>
+	                        	</div>
+	                        </div>
+                        </div>
+                    </div>
+                </div>
+                {% if messages %}
+                <div class="alert alert-danger" role="alert">{% for message in messages %}<p>{{ message }}</p>{% endfor %}</div>
+                {% endif %}
+            </div>
+        </div>
+        <footer>
+        	<div class="container">
+        		<div class="row">
+        			<div class="col-sm-8 col-sm-offset-2">
+        				<div class="footer-border"></div>
+        				<p><i class="fa fa-smile-o"></i><a href="#" target="_blank">     a jolly roger global dominion co. production     </a><i class="fa fa-smile-o"></i></p>
+        			</div>
+        		</div>
+        	</div>
+        </footer>
+    </body>
+</html>

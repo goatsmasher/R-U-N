@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <title>r / U / n - Create Event</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="{% static 'main_app/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/css/form-elements.css' %}">
+    <link rel="stylesheet" href="{% static 'event/event_page.css' %}">
+    <link rel="shortcut icon" href="{% static 'main_app/ico/favicon.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'user/ico/apple-touch-icon-144-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'user/ico/apple-touch-icon-114-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'user/ico/apple-touch-icon-72-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'user/ico/apple-touch-icon-57-precomposed.png' %}">
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--/*<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>*/-->
+    <script src="{% static 'main_app/js/run_apis.js' %}"></script>
+        <script type="text/javascript">
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  <script>
+  $( function() {
+    var dateFormat = "mm/dd/yy",
+      from = $( ".date_from" )
+        .datepicker({
+            dateFormat : "yy-mm-dd",
+            minDate: 0,
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 1
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( ".date_to" ).datepicker({
+          minDate: ".date_from",
+          dateFormat : "yy-mm-dd",
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 1
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
+  } );
+  </script>
+</head>
+<body>
+    <div class="container">
+        <p></p>
+        {# Load the tag library #} {% load bootstrap3 %} {# Load CSS and JavaScript #} {% bootstrap_javascript %}
+        <div class="row">
+            <div id="header">
+                <div class="col-md-6 logo">
+                    <!--<img src="{% static 'main_app/img/logo/logo.png'' %}" alt="logo" />-->
+                </div>
+                <div class="col-md-6">
+                    <ul>
+                        <li><a href="{% url 'user:profile' %}">My Profile</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'main:index' %}">Dashboard</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'user:signout' %}">Sign Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 offset-md-2">
+                <div class="dashTitle">
+                    <h1>LET'S GET STARTED!</h1>
+                </div>
+            </div>
+        </div>
+        <form action="{% url 'event:create_new' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-12 offset-md-2">
+                <div class="event_name">
+                    <h1>What is the event?</h1>
+                    <input type="text" name="event_name" value="">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 offset-md-2">
+                <div class="event_description">
+                    <h1>Why should we go?</h1>
+                    <input type="text" name="event_description">
+                </div>
+            </div>
+        </div>    
+        <div class="row">
+            <div class="col-md-12 offset-md-2">
+                <div class="event_description">
+                    <h1>Where is it going to be?</h1>
+                    <input type="text" name="event_place" placeholder="this needs to be google">
+                </div>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="event_description">
+                    <h1>When will it be?</h1>
+                    <input class="date_from" type="text" name="date_from" value="" >
+                    <p>until</p>
+                    <input class="date_to" type="text" name="date_to" value="" >
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="event_time">
+                    <h1>What time does it start?</h1>
+                    <select id="hour" name="hour">
+                        <option value="12">12</option>
+                    {% for i in range %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                    </select>:
+                    <select id="minutes" name="minutes">
+                    {% for i in minutes %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                    </select>
+                    <select name="am_pm">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
+        </div>       
+        
+        <div class="col-md-12 footer">
+        <input type="submit">
+        </div>                   
+        </form>
+    </div>
+</body>
+</html>

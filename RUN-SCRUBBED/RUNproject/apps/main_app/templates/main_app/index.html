@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load staticfiles %}
+    <title>r / U / n - Dashboard</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="{% static 'main_app/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/css/form-elements.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'main_app/ico/favicon.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'user/ico/apple-touch-icon-144-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'user/ico/apple-touch-icon-114-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'user/ico/apple-touch-icon-72-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'user/ico/apple-touch-icon-57-precomposed.png' %}">
+  <script>
+  $( function() {
+    var dateFormat = "mm/dd/yy",
+      from = $( ".date_from" )
+        .datepicker({
+            minDate: 0,
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 2
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( ".date_to" ).datepicker({
+          minDate: ".date_from",
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 2
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
+  } );
+  </script>
+    
+</head>
+
+<body>
+    <div class="container">
+        <p></p>
+        {# Load the tag library #} {% load bootstrap3 %} {# Load CSS and JavaScript #} {% bootstrap_javascript %}
+        <div class="row">
+            <div id="header">
+                <div class="col-md-2 logo">
+                    <img src="{% static 'main_app/img/logo/logo.png'' %}" alt="logo" />
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-6">
+                    <ul>
+                        <!--need to pass the user id from this page to profile page-->
+                        <li><a href="{% url 'user:profile' %}">My Profile</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'event:create' %}">Create New Event</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'user:signout' %}">Sign Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="Welcome User">
+            <h1>Welcome, {{request.session.first_name}}</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-12 offset-md-2">
+                <div class="dashTitle">
+                    {% buttons %}
+                    <input class="date_from" type="text" name="" value="" placeholder="Filter Start Date"> {% bootstrap_icon "calendar" %}
+                    <input class="date_to" type="text" name="" value="" placeholder="Filter End Date"> {% bootstrap_icon "calendar" %}
+                    <input type="text" name="search" placeholder="Filter..">
+                    {% endbuttons %}
+                </div>
+            </div>
+        </div>
+        {% if not upcoming %}
+        <h1>You have no upcoming events!</h1>
+        {% else %}
+        {% for event in upcoming %}
+        <div class="row event_tile">
+            <div class="col-md-12 offset-md-2">
+                <div class="dashItem">
+                    <div class="dashItemBack unique"></div>
+                    <div class="dashItemTop unique">
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8 event_title">
+                                <h1>{{ event.name }}</h1>
+                            </div>
+                            <div class="col-md-2 calendar">
+                                <img src="{% static 'main_app/img/dashtileitems/calendar.png' %}" alt="calendar icon" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashItemMid unique">
+                        <div class="row">
+                            <div class="col-md-8 offset-md-2 event_description">
+                                <h1></h1>
+                                <h4>Leny's Place</h4>
+                                <h4>2219 North 56th Street</h4>
+                                <h4>Seattle, WA 98103 United States</h4>
+                                <p>{{ event.description }}</p>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                <h3>1:30 PM</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashItemBot unique">
+                        <div class="row">
+                            <div class="col-md-6 weather">
+                                <h4>Cloudy - 34&deg </h4>
+                            </div>
+                                <div class="col-md-2 message">
+                                    <img src="{% static 'main_app/img/dashtileitems/messages.png' %}" alt="message icon" />2
+                                </div>
+                                <div class="col-md-2 invited">
+                                    <img src="{% static 'main_app/img/dashtileitems/group-of-three.png' %}" alt="invited icon" />3
+                                </div>
+                                <div class="col-md-2 status">
+                                    <img src="{% static 'main_app/img/dashtileitems/accepted.png' %}" alt="status for event" />Attending
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {# Display django.contrib.messages as Bootstrap alerts #} {% bootstrap_messages %}
+    </div>
+</body>
+
+</html>
