@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{user.first_name}}'s Dashboard</title>
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $("#id_date").datepicker({
+                minDate: '0'
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <p></p>
+        {# Load the tag library #} {% load bootstrap3 %} {# Load CSS and JavaScript #} {% bootstrap_css %} {% bootstrap_javascript %}
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Hello, {{user.first_name}}</h3></div>
+            <div class="col-md-2">
+                <p><a href="/signout">Sign Out</a></p>
+            </div>
+        </div>
+
+
+        <div>
+            <p>Here are your appointments for today, {{thisday|date:"M d, Y"}}:</p>
+            <table class="table-striped table">
+                <tr>
+                    <th>Tasks</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                {% for task in today %}
+                <tr>
+
+                    <td>{{task.task}}</td>
+                    <td>{{task.time|date:"H:i"}}</td>
+                    <td>{{task.status}}</td>
+                    <td>
+                        {%if task.status != 'Done'%}
+                        <a href="/appointments/{{task.id}}">Edit</a> | <a href="/appointments/{{task.id}}/delete">Delete</a> {%endif%}
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <hr>
+        <div>
+            <p>Your up-coming appointments:</p>
+            <table class="table-striped table">
+                <tr>
+                    <th>Tasks</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+                {% for task in future %}
+                <tr>
+
+                    <td>{{task.task}}</td>
+                    <td>{{task.date|date:"M d"}}</td>
+                    <td>{{task.time|date:"H:i"}}</td>
+
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Add Appointment</h4> {# Display a form #}
+                <p class="help-block">Current system time: {% now "H:i M j, Y" %}</p>
+                <form action="{%url 'apt:add'%}" method="post" class="form">
+                    {% csrf_token %} {% bootstrap_form addForm %}
+                    <input type="hidden" name="user_id" , value="{{user.id}}"> {% buttons %}
+                    <button type="submit" class="btn btn-primary">
+          {% bootstrap_icon "calendar" %} Add Task
+        </button> {% endbuttons %}
+                </form>
+            </div>
+        </div>
+
+        {# Display django.contrib.messages as Bootstrap alerts #} {% bootstrap_messages %}
+    </div>
+</body>
+
+</html>

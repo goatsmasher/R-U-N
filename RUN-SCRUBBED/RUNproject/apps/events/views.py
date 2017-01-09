@@ -6,7 +6,10 @@ from .models import Event
 def create(request):
     context = {
         "range" : range(1,12),
-        "minutes" : ('00', 15, 30,45)
+        "minutes" : ('00', 15, 30,45),
+        'user': User.objects.get(id=request.session['user_id']),
+        # 'messages': Message.objects.filter(event=Event.objects.filter(id=event_id)),
+        # 'comments': Comment.objects.filter(related_message__event=Event.objects.filter(id=event_id)),
     }
     return render(request, 'main_app/event_page.html', context)
 
@@ -16,4 +19,3 @@ def invite(request):
 def create_new(request):
     new_event = Event.objects.new_event(request.POST, request.session['user_id'])
     return redirect('main:index')
-    

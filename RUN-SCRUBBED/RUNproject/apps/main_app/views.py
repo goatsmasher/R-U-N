@@ -12,7 +12,6 @@ def index(request):
     except:
         return redirect('user:index')
     context = {
-        "upcoming" : Event.objects.all().filter(created_by_id=request.session['user_id']),
+        "upcoming" : Event.objects.filter(created_by_id=request.session['user_id']),
     }
     return render(request, 'main_app/index.html', context)
-

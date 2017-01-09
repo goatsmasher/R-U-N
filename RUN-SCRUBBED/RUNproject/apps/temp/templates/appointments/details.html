@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- <title>r | U | n | ? - Login</title> -->
+    <title>r / U / n - Login</title>
+
+    {% load staticfiles %}
+    <!-- <link rel="stylesheet" href="{% static 'users/css/style.css' %}" media="screen" title="no title"  charset="utf-8"> -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link rel="stylesheet" href="{% static 'appointments/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'appointments/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'appointments/css/form-elements.css' %}">
+    <link rel="stylesheet" href="{% static 'appointments/css/style.css' %}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="{% static 'appointments/assets/ico/favicon.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'user/ico/apple-touch-icon-144-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'user/ico/apple-touch-icon-114-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'user/ico/apple-touch-icon-72-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'user/ico/apple-touch-icon-57-precomposed.png' %}">
+
+    <!-- <link rel="stylesheet" href="{% static 'appointments/css/style.css' %}"> -->
+
+
+    <script>
+        $(function() {
+            $("#id_date").datepicker({
+                minDate: '0'
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <p></p>
+        {# Load the tag library #} {% load bootstrap3 %} {# Load CSS and JavaScript #} {% bootstrap_javascript %}
+
+         <!-- {% bootstrap_css %} {% bootstrap_javascript %} -->
+        <div class="row">
+            <div id="header">
+                <div class="col-md-6">
+                    <h3>*PUT LOGO HERE</h3>
+                    <!-- <h3>Hello, {{user.first_name}}</h3></div> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+                        <div class="col-md-6">
+                            {%for message in messages%}
+                            <h3>{{message.message}}</h3>
+                            <!-- <h3>Hello, {{user.first_name}}</h3></div> -->
+                        </div>
+
+                </div>
+
+        {# Display django.contrib.messages as Bootstrap alerts #} {% bootstrap_messages %}
+
+</div>
+</body>
+
+</html>

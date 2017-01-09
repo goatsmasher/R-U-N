@@ -42,7 +42,7 @@
       .on( "change", function() {
         from.datepicker( "option", "maxDate", getDate( this ) );
       });
- 
+
     function getDate( element ) {
       var date;
       try {
@@ -50,12 +50,12 @@
       } catch( error ) {
         date = null;
       }
- 
+
       return date;
     }
   } );
   </script>
-    
+
 </head>
 
 <body>
@@ -118,9 +118,10 @@
                         <div class="row">
                             <div class="col-md-8 offset-md-2 event_description">
                                 <h1></h1>
-                                <h4>Leny's Place</h4>
-                                <h4>2219 North 56th Street</h4>
-                                <h4>Seattle, WA 98103 United States</h4>
+                                <h4>{{event.address.location_name}}</h4>
+                                <h4>{{event.address.neighborhood}}</h4>
+                                <h4>{{event.address.address_primary}} {{event.address.address_street}}</h4>
+                                <h4>{{event.address.address_city}}, {{event.address.address_state}} {{event.address.postal_code}}<h4>
                                 <p>{{ event.description }}</p>
                             </div>
                             <div class="col-md-2"></div>
