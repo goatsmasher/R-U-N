@@ -1,8 +1,0 @@
-Please enter your name:
-Josh
-Michael
-Seth
-Jack
-
-Another Added Line
-Added Another Another Line
