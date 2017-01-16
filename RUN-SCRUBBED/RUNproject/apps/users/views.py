@@ -56,11 +56,13 @@ def signout(request):
 def profile(request):
     user = User.objects.get(id=request.session['user_id'])
     events = Event.objects.all().filter(created_by_id=user.id)
+    count = Event.objects.all().filter(created_by_id=user.id).count()
     context = {
         "first_name" : user.first_name,
         "last_name" : user.last_name,
         "email" : user.email,
         "password" : "*********",
         "user_created" : events,
+        "count" : count,
     }
     return render(request, 'user/profile.html', context)

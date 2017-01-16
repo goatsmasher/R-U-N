@@ -192,6 +192,7 @@ img { max-width: 100%; }
 }
 
 .dashItemBot {
+  background-color: limegreen;
   width: 100%;
   top: 320px;
   height: 80px;
@@ -229,6 +230,9 @@ img { max-width: 100%; }
   width: 25%;
 
 }
+.event_sideInfo {
+  border: 1px solid black;
+}
 .event_title h1 {
   font-style: italic;
   font-weight: bold;
@@ -242,7 +246,10 @@ img { max-width: 100%; }
 .weather h4 {
   float: left;
 }
-
+.jumbotron {
+  border: 2px solid black;
+  opacity: 1;
+}
 .form-top-left {
 	float: left;
 	width: 75%;

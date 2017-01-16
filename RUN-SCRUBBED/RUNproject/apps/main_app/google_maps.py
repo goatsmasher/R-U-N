@@ -11,7 +11,7 @@ class geocode():
         geo = requests.post('https://maps.googleapis.com/maps/api/geocode/json?address={}&key={}'.format(address.replace(' ','+'),api_key), json={"key": "value"})
         return geo.json
 
-    def place(search):
+    def place(self,search):
         geo = requests.post('https://maps.googleapis.com/maps/api/place/textsearch/json?query={}&key={}'.format(search.replace(' ','+'),api_key), json={"key": "value"})
         geo_f = geo.json()
         # print(geo_f)

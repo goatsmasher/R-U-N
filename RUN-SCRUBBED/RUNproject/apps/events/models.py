@@ -14,6 +14,7 @@ UPPER_CASE_REGEX = re.compile(r'[A-Z]')
 NUMBER_REGEX = re.compile(r'[0-9]+')
 ILLEGAL_REGEX = re.compile(r'[~`()+={}|\\:;\'\"<>,.?/]')
 
+
 def validateLengthX(value):
     if len(value) < 4:
         raise ValidationError('{} must be longer than 3 characters'.format(value))
@@ -120,7 +121,8 @@ class AddressManager(models.Manager):
         validateResponse = {'status':True}
         if validateResponse['status']:
             # print(postData['event_place'])
-            geo_place = geocode.place(postData['event_place'])
+            geop = geocode()
+            geo_place = geop.place(postData['event_place'])
             # geo_place = geo_place.json()
             # print(geo_place)
             place_address = geo_place['result']['address_components']
@@ -178,23 +180,3 @@ class Address(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now_add=True)
     objects = AddressManager()
-
-class Message(models.Model):
-    message = models.CharField(max_length=1000)
-    created_by = models.ForeignKey(User)
-    event = models.ForeignKey(Event)
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now_add=True)
-
-    objects = MessageManager()
-
-class Comment(models.Model):
-    comment = models.CharField(max_length=1000)
-    related_message = models.ForeignKey(Message)
-    created_by = models.ForeignKey(User)
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now_add=True)
-
-    objects = CommentManager()
-
-# class Poll(models.Model):

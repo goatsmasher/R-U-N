@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load staticfiles %}
+        <title>{{event_info.name}} Event Details</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="{% static 'main_app/js/weatherapp.js' %}"></script>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="{% static 'main_app/bootstrap/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'main_app/font-awesome/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'main_app/css/form-elements.css' %}">
+        <link rel="stylesheet" href="{% static 'main_app/css/style.css' %}">
+        <link rel="shortcut icon" href="{% static 'main_app/ico/favicon.png' %}">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'user/ico/apple-touch-icon-144-precomposed.png' %}">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'user/ico/apple-touch-icon-114-precomposed.png' %}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'user/ico/apple-touch-icon-72-precomposed.png' %}">
+        <link rel="apple-touch-icon-precomposed" href="{% static 'user/ico/apple-touch-icon-57-precomposed.png' %}">
+
+    </head>
+    <body>
+    <div class="container">
+        <p></p>
+        {# Load the tag library #} {% load bootstrap3 %} {# Load CSS and JavaScript #} {% bootstrap_javascript %}
+        <div class="row">
+            <div id="header">
+                <div class="col-md-2 logo">
+                    <img src="{% static 'main_app/img/logo/logo.png'' %}" alt="logo" />
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-6">
+                    <ul>
+                        <li><a href="{% url 'user:profile' %}">My Profile</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'user:signout' %}">Sign Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--need to change to be dynamic based on event-->
+        <div class="jumbotron dashItemBack">
+        </div>
+        <div class="row">
+            <div class="col col-md-8">
+
+            </div>
+            <div class="col-6 col-md-4 event_sideInfo">
+                <h3>Hosted by {{user.first_name}}</h3>
+                <img src="{% static 'main_app/img/dashtileitems/pending.png' %}" alt="status for event" />
+                <img src="{% static 'main_app/img/dashtileitems/share.png' %}"
+            </div>
+        </div>
+            <h1>{{event_info.id}}</h1>
+            <h1>{{event_info.address.address_city}}</h1>
+            {% if event_info.created_by == user %}
+                <button>Edit</button>
+                <button>Delete This Event</button>
+            {% endif %}
+    </div>
+    </body>
+</html>
