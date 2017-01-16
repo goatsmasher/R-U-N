@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'apps.main_app',
     'apps.users',
     'apps.events',
+    'apps.msg',
     'bootstrap3',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -18,5 +18,6 @@ from django.conf.urls import url, include
 urlpatterns = [
     url(r'^', include('apps.main_app.urls', namespace='main')),
     url(r'users/', include('apps.users.urls', namespace='user')),
-    url(r'events/', include('apps.events.urls', namespace='event'))
+    url(r'events/', include('apps.events.urls', namespace='event')),
+    url(r'messages/', include('apps.msg.urls', namespace='messages'))
 ]
